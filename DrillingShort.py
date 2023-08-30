@@ -16,6 +16,7 @@ def tsp(graph, s):
             selected_vertices.append(k)
 
         current_cost += graph[k][s]
+        selected_vertices.append(s)  
         min_cost = min(min_cost, current_cost)
 
         if current_cost == min_cost:
