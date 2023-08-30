@@ -1,22 +1,33 @@
-import networkx as nx
+from sys import maxsize
+from itertools import permutations
 
-def get_distances(num_nodes):
-    return {(i, j): float(input(f"Enter the distance between node {i} and node {j}: ")) for i in range(1, num_nodes+1) for j in range(1, num_nodes+1)}
+def tsp(graph, s):
+    V = len(graph)
+    vertex = [i for i in range(V) if i != s]
 
-def tsp_optimal_drilling(distances):
-    G = nx.Graph()
-    G.add_weighted_edges_from((i, j, distance) for (i, j), distance in distances.items())
-    return nx.approximation.traveling_salesman_problem(G, cycle=True)
+    min_cost = maxsize
+    for perm in permutations(vertex):
+        current_cost, k = 0, s
+        selected_vertices = [s]
 
-def calculate_optimal_cost(drill_order, distances):
-    return sum(distances[(drill_order[i], drill_order[i+1])] for i in range(len(drill_order)-1))
+        for j in perm:
+            current_cost += graph[k][j]
+            k = j
+            selected_vertices.append(k)
 
-while True:
-    num_nodes = int(input("Enter the number of drill holes(nodes): "))
-    distances = get_distances(num_nodes)
-    optimal_order = tsp_optimal_drilling(distances)
-    optimal_cost = calculate_optimal_cost(optimal_order, distances)
-    print("Optimal order of drilling:", optimal_order)
-    print("Optimal cost of drilling:", optimal_cost)
-    if input("Do you want to try again with a different number of nodes? (yes/no): ").lower() != "yes":
-        break
+        current_cost += graph[k][s]
+        min_cost = min(min_cost, current_cost)
+
+        if current_cost == min_cost:
+            print("Selected Vertices:", selected_vertices)
+
+    return min_cost
+
+V = int(input("Enter the number of vertices: "))
+graph = [[0] * V for _ in range(V)]
+
+for i in range(V):
+    graph[i] = list(map(int, input(f"Enter distances from vertex {i} to all vertices (space-separated): ").split()))
+
+s = 0
+print("Optimal Cost:", tsp(graph, s))
