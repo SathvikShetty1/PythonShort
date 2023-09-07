@@ -1,6 +1,6 @@
 import heapq
 
-def (graph, start, end):
+def dijkstra(graph, start, end):
     d, p = {start: 0}, {}
     q = [(0, start)]
     while q:
