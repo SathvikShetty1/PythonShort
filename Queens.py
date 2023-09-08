@@ -16,7 +16,7 @@ def is_safe(board, row, col, n):
 
     return True
 
-def (n):
+def solve(n):
     board = [[0 for _ in range(n)] for _ in range(n)]
 
     def solve(row):
@@ -35,7 +35,7 @@ def (n):
     solve(0)
     
 n = int(input("Enter the no of queens "))
-solve_n_queens(n)
+solve(n)
 """
 Enter no of Queens: 4
 . . Q . 
