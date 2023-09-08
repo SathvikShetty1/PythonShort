@@ -19,7 +19,7 @@ def is_safe(board, row, col, n):
 def solve(n):
     board = [[0 for _ in range(n)] for _ in range(n)]
 
-    def solve(row):
+    def solve_(row):
         if row == n:
             for row in board:
                 print(" ".join(["Q" if cell == 1 else "." for cell in row]))
@@ -35,7 +35,7 @@ def solve(n):
     solve(0)
     
 n = int(input("Enter the no of queens "))
-solve(n)
+solve_(n)
 """
 Enter no of Queens: 4
 . . Q . 
