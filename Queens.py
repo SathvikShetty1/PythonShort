@@ -16,10 +16,10 @@ def is_safe(board, row, col, n):
 
     return True
 
-def solve(n):
+def solve_(n):
     board = [[0 for _ in range(n)] for _ in range(n)]
 
-    def solve_(row):
+    def solve(row):
         if row == n:
             for row in board:
                 print(" ".join(["Q" if cell == 1 else "." for cell in row]))
